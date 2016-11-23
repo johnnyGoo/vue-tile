@@ -18,12 +18,16 @@
     }
     var Smart = window.Smart;
     var Css = Smart.Css;
-//    var _ = Smart._;
+        var _ = Smart._;
 
     // 注册
     export default {
         // 声明 props
         props: {
+            skip: {
+                type: Boolean,
+                default: false
+            },
             state: {
                 type: String,
                 default: 'center'
@@ -64,12 +68,21 @@
             }
         },
         data: function () {
-            return {a:1}
+            return {a: 1}
 
         },
         watch: {
             'state': function (n, o) {
+                if (!_.contains([n,o],'center')) {
+                    this.update_transition(true)
+                }else{
+                    this.update_transition(this.skip)
+                }
                 this.update_state(n);
+
+            },
+            'skip': function (n, o) {
+                this.update_transition(n)
             }
         }
         ,
@@ -98,13 +111,23 @@
                         cssObj = this.bottom;
                         break;
                 }
-
-                Css.smartCss(this.$el,cssObj)
+                Css.smartCss(this.$el, cssObj)
             }
+
+            , update_transition: function (skip) {
+                if (skip) {
+                    Css.smartCss(this.$el, {'transition': 'top 0s'});
+                } else {
+                    Css.smartCss(this.$el, {'transition': this.transition});
+                }
+
+            }
+
 
         },
         ready: function () {
-            Css.smartCss(this.$el,{'transition':this.transition})
+            this.update_transition(this.skip);
+            this.update_state(this.state);
         }
 
 
