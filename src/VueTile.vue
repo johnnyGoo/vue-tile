@@ -18,7 +18,7 @@
     }
     var Smart = window.Smart;
     var Css = Smart.Css;
-        var _ = Smart._;
+    var _ = Smart._;
 
     // 注册
     export default {
@@ -65,17 +65,22 @@
                 default: function () {
                     return {x: 0, y: '100%'}
                 }
+            }, none: {
+                type: Object,
+                default: function () {
+                    return {x:'-100%'}
+                }
             }
         },
         data: function () {
-            return {a: 1}
+            return {}
 
         },
         watch: {
             'state': function (n, o) {
-                if (!_.contains([n,o],'center')) {
+                if (!_.contains([n, o], 'center')||_.contains([n, o], 'none')) {
                     this.update_transition(true)
-                }else{
+                } else {
                     this.update_transition(this.skip)
                 }
                 this.update_state(n);
@@ -91,24 +96,28 @@
                 var cssObj;
                 switch (state) {
                     case "center":
-                    case "C":
+
                         cssObj = this.center;
                         break;
                     case "left":
-                    case "L":
+
                         cssObj = this.left;
                         break;
                     case "right":
-                    case "R":
+
                         cssObj = this.right;
                         break;
                     case "top":
-                    case "T":
+
                         cssObj = this.top;
                         break;
                     case "bottom":
-                    case "B":
+
                         cssObj = this.bottom;
+                        break;
+                    case "none":
+
+                        cssObj = this.none;
                         break;
                 }
                 Css.smartCss(this.$el, cssObj)

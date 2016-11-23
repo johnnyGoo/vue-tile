@@ -54,7 +54,7 @@
 
 <div style="top:0px;left:0px;background: #0086b3;position: absolute;width: 100%">
     <div class="logo">Tile {{skip}}</div>
-
+    <div class="btn" @click="updateState('none')" :class="{active:state=='none'}">none</div>
     <div class="btn" @click="updateState('left')" :class="{active:state=='left'}">left</div> <div class="btn" @click="state='center'" :class="{active:state=='center'}">center</div>
     <div class="btn" @click="updateState('right')" :class="{active:state=='right'}">Right</div>
     <div class="btn" @click="updateState('top')" :class="{active:state=='top'}">top</div> <div class="btn" @click="state='center'" :class="{active:state=='center'}">center</div>
