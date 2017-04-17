@@ -68,23 +68,21 @@
             }, none: {
                 type: Object,
                 default: function () {
-                    return {x:'-100%'}
+                    return {x: '-100%'}
                 }
             }
         },
         data: function () {
             return {}
-
         },
         watch: {
             'state': function (n, o) {
-                if (!_.contains([n, o], 'center')||_.contains([n, o], 'none')) {
+                if (!_.contains([n, o], 'center') || _.contains([n, o], 'none')) {
                     this.update_transition(true)
                 } else {
                     this.update_transition(this.skip)
                 }
                 this.update_state(n);
-
             },
             'skip': function (n, o) {
                 this.update_transition(n)
@@ -96,50 +94,38 @@
                 var cssObj;
                 switch (state) {
                     case "center":
-
                         cssObj = this.center;
                         break;
                     case "left":
-
                         cssObj = this.left;
                         break;
                     case "right":
-
                         cssObj = this.right;
                         break;
                     case "top":
-
                         cssObj = this.top;
                         break;
                     case "bottom":
-
                         cssObj = this.bottom;
                         break;
                     case "none":
-
                         cssObj = this.none;
                         break;
                 }
                 Css.smartCss(this.$el, cssObj)
             }
-
             , update_transition: function (skip) {
                 if (skip) {
                     Css.smartCss(this.$el, {'transition': 'top 0s'});
                 } else {
                     Css.smartCss(this.$el, {'transition': this.transition});
                 }
-
             }
-
-
         },
         ready: function () {
             this.update_transition(this.skip);
             this.update_state(this.state);
         }
-
-
     }
 
 
